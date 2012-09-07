@@ -23,19 +23,25 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        // Authorizes the user's FB account
         facebook.authorize(this, new String[] { "email", "publish_stream", "offline_access" },
         		
         	new DialogListener() {
             
             public void onComplete(Bundle values) {}
-
+            
             public void onFacebookError(FacebookError error) {}
-
+            
             public void onError(DialogError e) {}
             
             public void onCancel() {}
         });
+    }
+    
+    // Extends access_token if needed
+    public void onResume() {    
+        super.onResume();
+        facebook.extendAccessTokenIfNeeded(this, null);
     }
 
     @Override
@@ -63,7 +69,19 @@ public class Main extends Activity {
 	        if(response.indexOf("OAuthException") > -1){
 	            if(mAuthAttempts==0){
 	                mAuthAttempts++;
-	                fbAuthAndPost(status);
+	                facebook.authorize(this, new String[] { "email", "publish_stream", "offline_access" },
+	                		
+	                    	new DialogListener() {
+	                        
+	                        public void onComplete(Bundle values) {}
+	                        
+	                        public void onFacebookError(FacebookError error) {}
+	                        
+	                        public void onError(DialogError e) {}
+	                        
+	                        public void onCancel() {}
+	                    });
+	                updateStatus(facebook.getAccessToken(), status);
 	            }else{
 	                showToast("OAuthException:");
 	            }
