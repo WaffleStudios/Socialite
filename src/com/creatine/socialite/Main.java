@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.widget.Toast;
 
@@ -57,6 +58,16 @@ public class Main extends Activity {
         inflater.inflate(R.menu.main, menu);
         return true;
     }
+    
+    public boolean onOptionsItemSelected(MenuItem item) {
+	    if (item.getItemId() == R.id.menu_post_status) {
+	    	Intent post = new Intent(this, StatusEntry.class);
+	    	post.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(post);
+	        return true;
+	    }
+		return false;
+	}		        
     
     public void updateStatus(String accessToken, String status) {
 		try {         
