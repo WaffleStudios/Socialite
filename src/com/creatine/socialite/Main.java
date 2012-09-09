@@ -17,8 +17,8 @@ import java.net.MalformedURLException;
 
 public class Main extends Activity {
 	
-	public static final String APP_ID = "223686664426439";
-	public static final String[] PERMISSIONS = { "email", "publish_stream", "offline_access" };
+	private static final String APP_ID = "223686664426439";
+	private static final String[] PERMISSIONS = { "email", "publish_stream", "offline_access" };
 	
 	Facebook facebook = new Facebook(Main.APP_ID);
 	private SharedPreferences mPrefs;
@@ -70,8 +70,8 @@ public class Main extends Activity {
     }
     
     // Updates Status
-    public void updateStatus(Context context){
+    public void updateStatus(){
     	// post on user's wall.
-        facebook.dialog(context, "feed", new PostDialogListener());
+        // facebook.dialog(context, "feed", new PostDialogListener());
     }
 }
