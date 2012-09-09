@@ -3,6 +3,7 @@
     <string name="app_name">Socialite</string>
     <string name="menu_post">Post Status</string>
     <string name="menu_settings">Settings</string>
+    <string name="send_descrip">Send</string>
     <string name="title_activity_main">Socialite</string>
     <string name="status_hint">What would you like to say?</string>
 
