@@ -56,6 +56,7 @@ public class Main extends Activity {
     	    	
     	    });
     	}
+    	updateStatus("Test");
     }
     // Extends the access token, if necessary.
     public void onResume() {    
@@ -69,9 +70,22 @@ public class Main extends Activity {
         facebook.authorizeCallback(requestCode, resultCode, data);
     }
     
-    // Updates Status
-    public void updateStatus(){
-    	// post on user's wall.
-        // facebook.dialog(context, "feed", new PostDialogListener());
+    public void updateStatus(String status) {
+        Log.d("Tests", "Testing graph API wall post");
+         try {
+                String response = facebook.request("me");
+                Bundle parameters = new Bundle();
+                parameters.putString("message", status);
+                parameters.putString("description", "test test test");
+                response = facebook.request("me/feed", parameters, 
+                        "POST");
+                Log.d("Tests", "got response: " + response);
+                if (response == null || response.equals("") || 
+                        response.equals("false")) {
+                   Log.v("Error", "Blank response");
+                }
+         } catch(Exception e) {
+             e.printStackTrace();
+         }
     }
 }
