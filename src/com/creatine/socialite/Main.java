@@ -1,5 +1,7 @@
 package com.creatine.socialite;
 
+import java.io.IOException;
+
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
@@ -9,20 +11,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class Main extends Activity {
 	
-	private static final String APP_ID = "223686664426439";
-	private static final String[] PERMISSIONS = { "email", "publish_stream", "offline_access" };
+	public static final String APP_ID = "223686664426439";
+	private static final String[] PERMISSIONS = { "publish_stream" };
 	
 	Facebook facebook = new Facebook(Main.APP_ID);
 	private SharedPreferences mPrefs;
 	
+	
+	// Checks login, and logs in if necessary.
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.main);
@@ -56,8 +59,16 @@ public class Main extends Activity {
     	    	
     	    });
     	}
-    	updateStatus("Test");
+    	Button test = (Button) findViewById(R.id.test_button);
+    	test.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	EditText edit = (EditText) findViewById(R.id.status_entry);
+            	String status = edit.getText().toString();
+            	updateStatus(status);
+            }
+        });
     }
+    
     // Extends the access token, if necessary.
     public void onResume() {    
         super.onResume();
@@ -68,24 +79,20 @@ public class Main extends Activity {
     	super.onActivityResult(requestCode, resultCode, data);
 
         facebook.authorizeCallback(requestCode, resultCode, data);
-    }
+    }	
     
-    public void updateStatus(String status) {
-        Log.d("Tests", "Testing graph API wall post");
-         try {
-                String response = facebook.request("me");
-                Bundle parameters = new Bundle();
-                parameters.putString("message", status);
-                parameters.putString("description", "test test test");
-                response = facebook.request("me/feed", parameters, 
-                        "POST");
-                Log.d("Tests", "got response: " + response);
-                if (response == null || response.equals("") || 
-                        response.equals("false")) {
-                   Log.v("Error", "Blank response");
-                }
-         } catch(Exception e) {
-             e.printStackTrace();
-         }
-    }
+    public void updateStatus(final String msg) {
+	    new Thread(new Runnable() {
+	    	public void run() {
+				Bundle parameters = new Bundle();
+				parameters.putString("message", msg);
+				try {
+					String response = facebook.request("me/feed", parameters,"POST");
+					System.out.println(response);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	    	}
+	    }).start();
+	}
 }

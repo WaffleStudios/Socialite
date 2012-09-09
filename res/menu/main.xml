@@ -3,4 +3,7 @@
         android:title="@string/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/menu_status"
+        android:title="@string/menu_post"
+        android:showAsAction="always" />
 </menu>

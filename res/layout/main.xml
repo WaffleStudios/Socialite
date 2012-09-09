@@ -2,5 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+	    <ImageButton 
+	    android:id="@+id/test_button"
+	    android:src="@drawable/ic_send"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:contentDescription="@string/send_descrip"
+	    android:layout_centerInParent="true" />
+		<EditText 
+	    android:id="@+id/status_entry"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@id/test_button"
+	    android:hint="@string/status_hint"
+	    android:inputType="text" />	
 </RelativeLayout>

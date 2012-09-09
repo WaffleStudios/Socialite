@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FBLogin"
-            android:label="@string/title_activity_main" >
+            android:name=".FBStatus"
+            android:label="@string/menu_post" >
             <intent-filter>
-                <action android:name="android.intent.action.FBLOGIN" />
+                <action android:name="android.intent.action.FBSTATUS" />
             </intent-filter>
         </activity>
     </application>
