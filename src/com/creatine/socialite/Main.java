@@ -84,14 +84,14 @@ public class Main extends Activity {
     public void updateStatus(final String msg) {
 	    new Thread(new Runnable() {
 	    	public void run() {
-				Bundle parameters = new Bundle();
-				parameters.putString("message", msg);
-				try {
-					String response = facebook.request("me/feed", parameters,"POST");
-					System.out.println(response);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			Bundle parameters = new Bundle();
+			parameters.putString("message", msg);
+			try {
+				String response = facebook.request("me/feed", parameters,"POST");
+				System.out.println(response);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	    	}
 	    }).start();
 	}
