@@ -3,7 +3,10 @@
     <string name="app_name">Socialite</string>
     <string name="menu_post">Post Status</string>
     <string name="menu_settings">Settings</string>
+    <string name="cam_descrip">Take Photo</string>
+    <string name="loc_descrip">Check In</string>
     <string name="send_descrip">Send</string>
+    <string name="photo_descrip">Attach Photo</string>
     <string name="title_activity_main">Socialite</string>
     <string name="status_hint">What would you like to say?</string>
 

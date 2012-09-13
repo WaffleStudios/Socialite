@@ -5,8 +5,10 @@
 
     <uses-sdk 
         android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="14" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -19,6 +21,15 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Status"
+            android:label="@string/menu_post"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="stateVisible|adjustResize" >"
+            <intent-filter>
+                <action android:name="android.intent.action.STATUS" />
             </intent-filter>
         </activity>
         <activity
