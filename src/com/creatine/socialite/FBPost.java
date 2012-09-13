@@ -1,9 +1,11 @@
 package com.creatine.socialite;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.facebook.android.Facebook;
 
@@ -34,7 +36,6 @@ public class FBPost {
 				}
 			}
 		}).start();
-		
 	}
 	
 	public void postPhoto(final String imagePath, final String status) {

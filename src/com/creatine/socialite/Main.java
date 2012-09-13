@@ -49,6 +49,7 @@ public class Main extends SherlockActivity {
     				SharedPreferences.Editor editor = mPrefs.edit();
                     editor.putString("access_token", facebook.getAccessToken());
                     editor.putLong("access_expires", facebook.getAccessExpires());
+                    editor.putString("appId", "223686664426439");
                     editor.commit();
     			}
     	    	

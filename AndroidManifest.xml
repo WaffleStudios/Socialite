@@ -26,6 +26,7 @@
         <activity
             android:name=".Status"
             android:label="@string/menu_post"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="stateVisible|adjustResize" >"
             <intent-filter>

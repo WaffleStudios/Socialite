@@ -20,26 +20,24 @@ import com.actionbarsherlock.view.MenuItem;
 import java.io.File;
 
 public class Status extends SherlockActivity {
-	
+
 	private static final int SELECT_PICTURE = 1;
 	private static final int CAMERA_PICTURE = 2;
-	
+
 	private FBPost post;
 	private SharedPreferences mPrefs;
 	private String selectedImagePath;
 	private String access_token;
 	private Uri imageUri;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status);
-		ActionBar actionBar = getSupportActionBar();
-	    actionBar.setDisplayHomeAsUpEnabled(true);
 		mPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
 		access_token = mPrefs.getString("access_token", null);
 		post = new FBPost(Main.APP_ID, access_token);
 	}
-	
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		/*

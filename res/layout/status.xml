@@ -2,13 +2,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
 	    <EditText 
-	    android:id="@+id/status_entry"
-	    android:layout_width="match_parent"
-	    android:layout_height="200dip"
-	    android:gravity="top"
-	    android:hint="@string/status_hint"
-	    android:inputType="textCapSentences" />
-	    
+	    	android:id="@+id/status_entry"
+	    	android:singleLine="false"
+	    	android:maxLines="5"
+	    	android:layout_width="250dip"
+	    	android:layout_height="wrap_content"
+	    	android:gravity="top"
+	    	android:hint="@string/status_hint"
+	    	android:inputType="textCapSentences" />
+	    <ImageButton 
+	       	android:id="@+id/take_photo"
+        	android:contentDescription="@string/cam_descrip"
+        	android:src="@drawable/ic_take_picture"
+        	android:layout_alignParentLeft="true"
+        	android:layout_below="@id/status_entry" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	style="?android:attr/borderlessButtonStyle" />
+	    <ImageButton
+    	    android:id="@+id/post_status"
+    	    android:contentDescription="@string/send_descrip"
+    	    android:src="@drawable/ic_send"
+        	android:layout_alignParentRight="true"
+        	android:layout_alignTop="@id/status_entry"
+        	android:layout_alignBottom="@id/status_entry"
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" />"
+    	<ImageButton
+    	    android:id="@+id/add_photo"
+        	android:contentDescription="@string/photo_descrip"
+        	android:src="@drawable/ic_attach_picture"
+        	android:layout_below="@id/status_entry" 
+        	android:layout_toRightOf="@id/take_photo" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content"
+        	style="?android:attr/borderlessButtonStyle" />
+    	<ImageButton 
+    	    android:id="@+id/attach_location"
+        	android:contentDescription="@string/loc_descrip"
+        	android:src="@drawable/ic_checkin" 
+        	android:layout_below="@id/status_entry" 
+        	android:layout_toRightOf="@id/add_photo" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content"
+        	style="?android:attr/borderlessButtonStyle" />
+
 </RelativeLayout>

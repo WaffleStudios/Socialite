@@ -8,6 +8,6 @@
     <string name="send_descrip">Send</string>
     <string name="photo_descrip">Attach Photo</string>
     <string name="title_activity_main">Socialite</string>
-    <string name="status_hint">What would you like to say?</string>
+    <string name="status_hint">Update status...</string>
 
 </resources>
