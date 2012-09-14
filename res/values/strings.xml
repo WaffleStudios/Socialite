@@ -9,5 +9,6 @@
     <string name="photo_descrip">Attach Photo</string>
     <string name="title_activity_main">Socialite</string>
     <string name="status_hint">Update status...</string>
+    <string name="sign_in">Sign In</string>
 
 </resources>

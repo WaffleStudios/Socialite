@@ -1,5 +1,7 @@
 package com.creatine.socialite;
 
+import java.io.IOException;
+
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
@@ -8,6 +10,8 @@ import com.facebook.android.Facebook.DialogListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -18,21 +22,23 @@ import com.actionbarsherlock.view.MenuItem;
 public class Main extends SherlockActivity {
 	
 	public static final String APP_ID = "223686664426439";
-	private static final String[] PERMISSIONS = { "publish_stream", "user_photos" };
+	private static final String[] PERMISSIONS = { "publish_stream", "read_stream", "user_photos" };
 	private static final String PREFS = "sharedPrefs";
 	
 	private SharedPreferences mPrefs;
 	private long expires;
 	String access_token;
 	Facebook facebook = new Facebook(APP_ID);
+	SharedPreferences.Editor editor;
 	
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.main);
         /*
          * Gets existing access token, if any.
          */
     	mPrefs = getSharedPreferences(PREFS, MODE_PRIVATE);
+    	editor = mPrefs.edit();
+        editor.putString("appId", "223686664426439");
         access_token = mPrefs.getString("access_token", null);
         expires = mPrefs.getLong("access_expires", 0);
         if(access_token != null) {
@@ -43,25 +49,29 @@ public class Main extends SherlockActivity {
         }
         // If there is no existing access token, it will log in and save access token.
     	if(!facebook.isSessionValid()) {
-    		facebook.authorize(this, Main.PERMISSIONS,
-    				new DialogListener() {
-    			public void onComplete(Bundle values) {
-    				SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putString("access_token", facebook.getAccessToken());
-                    editor.putLong("access_expires", facebook.getAccessExpires());
-                    editor.putString("appId", "223686664426439");
-                    editor.commit();
-    			}
-    	    	
-    	    	public void onFacebookError(FacebookError error) {}
-    	    	
-    	    	public void onError(DialogError e) {}
-    	    	
-    	    	public void onCancel() {}
-    	    	
-    	    });
+    		setContentView(R.layout.main);
+    		Button signIn = (Button) findViewById(R.id.sign_in);
+    		signIn.setOnClickListener(new View.OnClickListener() {
+				
+				public void onClick(View v) {
+					authorize();
+					setContentView(R.layout.news_feed);
+				}
+			});
+    	} else {
+    		setContentView(R.layout.news_feed);
+    		
+    			new Thread(new Runnable () {
+    				public void run() {
+    					try {
+    						String feed = facebook.request("me/home");
+    						System.out.println(feed);
+    					} catch (IOException e) {
+    						e.printStackTrace();
+    					}
+    				}
+    			});	  
     	}
-    	
     }
 
     public void onResume() {    
@@ -73,6 +83,24 @@ public class Main extends SherlockActivity {
     	super.onActivityResult(requestCode, resultCode, data);
 
         facebook.authorizeCallback(requestCode, resultCode, data);
+    }
+    
+    public void authorize() {
+    	facebook.authorize(this, PERMISSIONS,
+				new DialogListener() {
+			public void onComplete(Bundle values) {
+                editor.putString("access_token", facebook.getAccessToken());
+                editor.putLong("access_expires", facebook.getAccessExpires());
+                editor.commit();
+			}
+	    	
+	    	public void onFacebookError(FacebookError error) {}
+	    	
+	    	public void onError(DialogError e) {}
+	    	
+	    	public void onCancel() {}
+	    	
+	    });
     }
     /*
      * Menu options
