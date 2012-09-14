@@ -38,13 +38,10 @@ public class FBPost {
 		}).start();
 	}
 	
-	public void postPhoto(final String imagePath, final String status) {
+	public void postPhoto(final ByteArrayOutputStream bos, final String status) {
 		new Thread(new Runnable () {
 	    	public void run() {
 	    		Bundle parameters = new Bundle();
-	    		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	    		Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-	    	    bitmap.compress(CompressFormat.JPEG, 100, bos);
 	    	    if(status != null) {
 	    	    	parameters.putString("message", status);
 	    	    }
