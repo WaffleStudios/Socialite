@@ -13,7 +13,7 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Holo.Theme.Sherlock.Light.DarkActionBar" >
         <activity
             android:name=".Main"
             android:label="@string/title_activity_main" >
@@ -34,10 +34,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FBStatus"
+            android:name=".FBPost"
             android:label="@string/menu_post" >
             <intent-filter>
-                <action android:name="android.intent.action.FBSTATUS" />
+                <action android:name="android.intent.action.FBPOST" />
             </intent-filter>
         </activity>
     </application>

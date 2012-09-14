@@ -10,7 +10,8 @@
 	    	android:layout_height="wrap_content"
 	    	android:gravity="top"
 	    	android:hint="@string/status_hint"
-	    	android:inputType="textCapSentences" />
+	    	android:inputType="textCapSentences|textMultiLine"
+	    	android:scrollHorizontally="false" />
 	    <ImageButton 
 	       	android:id="@+id/take_photo"
         	android:contentDescription="@string/cam_descrip"
@@ -28,7 +29,8 @@
         	android:layout_alignTop="@id/status_entry"
         	android:layout_alignBottom="@id/status_entry"
         	android:layout_width="wrap_content" 
-        	android:layout_height="wrap_content" />"
+        	android:layout_height="wrap_content"
+        	style="?android:attr/borderlessButtonStyle" />
     	<ImageButton
     	    android:id="@+id/add_photo"
         	android:contentDescription="@string/photo_descrip"

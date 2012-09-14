@@ -8,10 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -36,6 +37,32 @@ public class Status extends SherlockActivity {
 		mPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
 		access_token = mPrefs.getString("access_token", null);
 		post = new FBPost(Main.APP_ID, access_token);
+		ImageButton status = (ImageButton) findViewById(R.id.post_status);
+		ImageButton photo = (ImageButton) findViewById(R.id.add_photo);
+		ImageButton camera = (ImageButton) findViewById(R.id.take_photo);
+		ImageButton checkIn = (ImageButton) findViewById(R.id.attach_location);
+		status.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				EditText edit = (EditText) findViewById(R.id.status_entry);
+	        	String status = edit.getText().toString();
+	        	if(selectedImagePath != null) {
+	        		post.postPhoto(selectedImagePath, status);
+	        		selectedImagePath = null;
+	        	} else {
+	        		post.updateStatus(status);
+	        	}
+	        	Intent home = new Intent(getBaseContext(), Main.class);
+	    		home.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    		startActivity(home);
+			}
+		});
+		photo.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent selectPhoto = new Intent(Intent.ACTION_PICK,
+			               android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(selectPhoto, SELECT_PICTURE);
+			}
+		});
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -64,13 +91,14 @@ public class Status extends SherlockActivity {
         return cursor.getString(column_index);
     }
 	// Creates menu
+	/* Soon to be outdated.  Testing 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuinflate = new MenuInflater(this);
 		menuinflate.inflate(R.menu.status, menu);
 		return true;
 	}	
 
-	@Override
+	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.post_status) {
 	    	EditText edit = (EditText) findViewById(R.id.status_entry);
@@ -115,4 +143,5 @@ public class Status extends SherlockActivity {
             return super.onOptionsItemSelected(item);
 		}
 	}
+	*/
 }
