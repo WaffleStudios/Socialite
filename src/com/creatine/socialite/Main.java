@@ -1,15 +1,16 @@
 package com.creatine.socialite;
 
-import java.io.IOException;
-
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Facebook.DialogListener;
+import com.facebook.android.Util;
+
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +19,23 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Main extends SherlockActivity {
 	
@@ -27,9 +45,10 @@ public class Main extends SherlockActivity {
 	
 	private SharedPreferences mPrefs;
 	private long expires;
-	String access_token;
-	Facebook facebook = new Facebook(APP_ID);
-	SharedPreferences.Editor editor;
+	private String access_token;
+	private Facebook facebook = new Facebook(APP_ID);
+	private SharedPreferences.Editor editor;
+	private Gson gson;
 	
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
@@ -56,21 +75,12 @@ public class Main extends SherlockActivity {
 				public void onClick(View v) {
 					authorize();
 					setContentView(R.layout.news_feed);
+					assembleNF();
 				}
 			});
     	} else {
     		setContentView(R.layout.news_feed);
-    		
-    			new Thread(new Runnable () {
-    				public void run() {
-    					try {
-    						String feed = facebook.request("me/home");
-    						System.out.println(feed);
-    					} catch (IOException e) {
-    						e.printStackTrace();
-    					}
-    				}
-    			});	  
+    		assembleNF();
     	}
     }
 
@@ -84,6 +94,12 @@ public class Main extends SherlockActivity {
 
         facebook.authorizeCallback(requestCode, resultCode, data);
     }
+    
+    public void assembleNF() {
+    	Intent p = new Intent(this, com.creatine.socialite.FeedUI.NewsFeed.class);
+    	p.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(p);
+	}
     
     public void authorize() {
     	facebook.authorize(this, PERMISSIONS,
@@ -105,21 +121,6 @@ public class Main extends SherlockActivity {
     /*
      * Menu options
      */
-    public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater menuinflate = new MenuInflater(this);
-		menuinflate.inflate(R.menu.main, menu);
-		return true;
-	}	
-
-	
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    if (item.getItemId() == R.id.menu_status) {
-	    	Intent p = new Intent(this, Status.class);
-	    	p.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	    	startActivity(p);
-	    	return true;
-	    }
-		return false;
-	}
+    
 }
 

@@ -1,11 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.creatine.socialite"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="alpha1" >
 
     <uses-sdk 
-        android:minSdkVersion="8"
-        android:targetSdkVersion="14" />
+        android:minSdkVersion="8" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -37,6 +36,20 @@
         <activity
             android:name=".FBPost"
             android:label="@string/menu_post" >
+            <intent-filter>
+                <action android:name="android.intent.action.FBPOST" />
+                <category android:name="android.intent.category.EMBED" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Feed.FeedParser" >
+            <intent-filter>
+                <action android:name="android.intent.action.FEEDPARSER" />
+                <category android:name="android.intent.category.EMBED" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".FeedUI.NewsFeed" >
             <intent-filter>
                 <action android:name="android.intent.action.FBPOST" />
                 <category android:name="android.intent.category.EMBED" />
