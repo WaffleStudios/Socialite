@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
-	<ListView
+	<com.markupartist.android.widget.PullToRefreshListView
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" 
 	    android:id="@android:id/list" />
