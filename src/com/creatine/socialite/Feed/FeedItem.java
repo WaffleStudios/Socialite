@@ -12,6 +12,7 @@ public class FeedItem {
 	private String user;
 	private String message;
 	private Bitmap userPicture;
+	private Bitmap image;
 	
 	public void setUser(String user) {
 		this.user = user;
@@ -35,6 +36,20 @@ public class FeedItem {
 		}
 	}
 	
+	public void setImage(String photoId) {
+		URL img_value = null;
+		try {
+			img_value = new URL(photoId);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		try {
+			this.image = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public String getUser() {
 		return this.user;
 	}
@@ -45,5 +60,9 @@ public class FeedItem {
 	
 	public Bitmap getUserPicture() {
 		return userPicture;
+	}
+	
+	public Bitmap getImage() {
+		return image;
 	}
 }

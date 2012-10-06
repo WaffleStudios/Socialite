@@ -1,5 +1,7 @@
 package com.creatine.socialite;
 
+import java.io.ByteArrayOutputStream;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,18 +9,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.actionbarsherlock.app.SherlockActivity;
-
-import java.io.ByteArrayOutputStream;
 
 public class Status extends SherlockActivity {
 
@@ -40,7 +41,7 @@ public class Status extends SherlockActivity {
 		mContext = getApplicationContext();
 		mPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
 		access_token = mPrefs.getString("access_token", null);
-		post = new FBPost(Main.APP_ID, access_token);
+		post = new FBPost(Login.APP_ID, access_token);
 		ImageButton status = (ImageButton) findViewById(R.id.post_status);
 		ImageButton photo = (ImageButton) findViewById(R.id.add_photo);
 		ImageButton camera = (ImageButton) findViewById(R.id.take_photo);
@@ -55,9 +56,7 @@ public class Status extends SherlockActivity {
 	        	} else {
 	        		post.updateStatus(status);
 	        	}
-	        	Intent home = new Intent(getBaseContext(), Main.class);
-	    		home.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	    		startActivity(home);
+	        	finish();
 			}
 		});
 		photo.setOnClickListener(new View.OnClickListener() {
@@ -88,18 +87,19 @@ public class Status extends SherlockActivity {
 		/*
 		 * Gets picture path based on method of entry
 		 */
+		ImageView preview = (ImageView) findViewById(R.id.photo_upload);
 		if (requestCode == SELECT_PICTURE && resultCode == Activity.RESULT_OK) {
             	selectedImage = data.getData();
                 imagePath = getPath(selectedImage);
                 bos = new ByteArrayOutputStream();
 	    		Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-	    	    bitmap.compress(CompressFormat.JPEG, 100, bos);
+	    	    bitmap.compress(CompressFormat.PNG, 100, bos);
         }
 	    if (requestCode == CAMERA_PICTURE && resultCode == Activity.RESULT_OK) {
 	        	imagePath = getPath(imageUri);
 	        	bos = new ByteArrayOutputStream();
 		    	Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-		    	bitmap.compress(CompressFormat.JPEG, 100, bos);
+		    	bitmap.compress(CompressFormat.PNG, 100, bos);
 	    }
 	}
 	// Retrieves path from Uri to allow for upload

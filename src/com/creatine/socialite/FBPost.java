@@ -1,11 +1,11 @@
 package com.creatine.socialite;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import android.os.Bundle;
 
 import com.facebook.android.Facebook;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 
 
