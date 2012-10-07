@@ -2,3 +2,4 @@ bin
 gen
 .settings
 .dropbox
+lint.xml

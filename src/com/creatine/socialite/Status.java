@@ -17,8 +17,8 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
+import com.WazaBe.HoloEverywhere.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 
 public class Status extends SherlockActivity {
@@ -32,6 +32,7 @@ public class Status extends SherlockActivity {
 	private SharedPreferences mPrefs;
 	private String imagePath;
 	private String access_token;
+	private String appId;
 	private Uri imageUri;
 	private Uri selectedImage;
 
@@ -41,10 +42,12 @@ public class Status extends SherlockActivity {
 		mContext = getApplicationContext();
 		mPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
 		access_token = mPrefs.getString("access_token", null);
-		post = new FBPost(Login.APP_ID, access_token);
+		appId = mPrefs.getString("appId", null);
+		post = new FBPost(appId, access_token);
 		ImageButton status = (ImageButton) findViewById(R.id.post_status);
 		ImageButton photo = (ImageButton) findViewById(R.id.add_photo);
 		ImageButton camera = (ImageButton) findViewById(R.id.take_photo);
+		ImageButton location = (ImageButton) findViewById(R.id.attach_location);
 		// ImageButton checkIn = (ImageButton) findViewById(R.id.attach_location);
 		status.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -80,6 +83,12 @@ public class Status extends SherlockActivity {
 			    startActivityForResult(intent, CAMERA_PICTURE);
 			}
 		});
+		location.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Toast toast = Toast.makeText(getApplicationContext(), "Feature not yet enabled", android.widget.Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		});
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -87,7 +96,7 @@ public class Status extends SherlockActivity {
 		/*
 		 * Gets picture path based on method of entry
 		 */
-		ImageView preview = (ImageView) findViewById(R.id.photo_upload);
+		// TODO:  Add Image preview to post dialog.
 		if (requestCode == SELECT_PICTURE && resultCode == Activity.RESULT_OK) {
             	selectedImage = data.getData();
                 imagePath = getPath(selectedImage);
