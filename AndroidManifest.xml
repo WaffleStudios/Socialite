@@ -21,22 +21,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity 
+            android:name=".FeedUI.Splash">
+            <intent-filter>
+                <action android:name="com.creatine.socialite.FeedUI.SPLASH" />
+                <category android:name="android.intent.category.EMBED" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".Status"
+            android:name=".Post.Status"
             android:label="@string/menu_post"
             android:theme="@style/Theme.Sherlock.Light.Dialog"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="stateVisible|adjustResize" >"
             <intent-filter>
-                <action android:name="android.intent.action.STATUS" />
+                <action android:name="com.creatine.socialite.Post.STATUS" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FBPost"
-            android:label="@string/menu_post" >
+        <activity 
+            android:name=".Settings.Settings"
+            android:label="@string/menu_settings">
             <intent-filter>
-                <action android:name="android.intent.action.FBPOST" />
+                <action android:name="com.creatine.socialite.Settings.SETTINGS" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>

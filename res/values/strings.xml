@@ -10,5 +10,7 @@
     <string name="title_activity_main">Socialite</string>
     <string name="status_hint">Update status...</string>
     <string name="sign_in">Sign In</string>
+    <string name="logout">Log Out</string>
+    <string name="logout_hint">Logs you out of Socialite</string>
 
 </resources>

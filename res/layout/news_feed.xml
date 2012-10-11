@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-	<com.markupartist.android.widget.PullToRefreshListView
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" 
-	    android:id="@android:id/list" />
-</LinearLayout>
+    android:layout_height="match_parent" >
+	<fragment class="com.creatine.socialite.FeedUI.FeedFragment"
+              android:id="@+id/list_frag"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" />
+</FrameLayout>

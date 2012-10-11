@@ -1,4 +1,4 @@
-package com.creatine.socialite;
+package com.creatine.socialite.Post;
 
 import java.io.ByteArrayOutputStream;
 
@@ -20,30 +20,25 @@ import android.widget.ImageButton;
 
 import com.WazaBe.HoloEverywhere.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.creatine.socialite.R;
 
 public class Status extends SherlockActivity {
 
 	private static final int SELECT_PICTURE = 1;
 	private static final int CAMERA_PICTURE = 2;
+	private static final String APP_ID = "223686664426439";
+	private static final String[] PERMISSIONS = { "publish_stream", "read_stream", "user_photos" };
 
 	private ByteArrayOutputStream bos;
-	private Context mContext;
 	private FBPost post;
-	private SharedPreferences mPrefs;
 	private String imagePath;
-	private String access_token;
-	private String appId;
 	private Uri imageUri;
 	private Uri selectedImage;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status);
-		mContext = getApplicationContext();
-		mPrefs = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-		access_token = mPrefs.getString("access_token", null);
-		appId = mPrefs.getString("appId", null);
-		post = new FBPost(appId, access_token);
+		post = new FBPost(this, getApplicationContext(), APP_ID, PERMISSIONS);
 		ImageButton status = (ImageButton) findViewById(R.id.post_status);
 		ImageButton photo = (ImageButton) findViewById(R.id.add_photo);
 		ImageButton camera = (ImageButton) findViewById(R.id.take_photo);

@@ -1,21 +1,22 @@
-package com.creatine.socialite;
+package com.creatine.socialite.Post;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
-import com.facebook.android.Facebook;
+import com.creatine.socialite.Facebook.FBConnect;
 
 
 
 public class FBPost {
 	
-	private Facebook facebook;
+	private FBConnect fbConnect;
 	
-	public FBPost(String appId, String access_token) {
-		facebook = new Facebook(appId);
-		facebook.setAccessToken(access_token);
+	public FBPost(Activity activity, Context context, String appId, String[] permissions) {
+		this.fbConnect = new FBConnect(activity, context, appId, permissions);
 	}
 	
 	public void updateStatus(final String status) {
@@ -24,7 +25,7 @@ public class FBPost {
 				Bundle parameters = new Bundle();
 				parameters.putString("message", status);  
 				try {
-					String response = facebook.request("me/feed", parameters,"POST");
+					String response = fbConnect.getFacebook().request("me/feed", parameters,"POST");
 					System.out.println(response);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -42,7 +43,7 @@ public class FBPost {
 	    	    }
 	    	    parameters.putByteArray("picture", bos.toByteArray());
 	    		try {
-	    			String response = facebook.request("me/photos", parameters,"POST");
+	    			String response = fbConnect.getFacebook().request("me/photos", parameters,"POST");
 	    			System.out.println(response);
 	    		} catch (IOException e) {
 	    			e.printStackTrace();
